@@ -1,0 +1,88 @@
+@tailwind base;@tailwind components;@tailwind utilities;
+:root{--bg:#080808;--surf:#171717;--fg:#fff;--mute:#9b9b9b;--line:#2b2b2b;--ac:#c0c0c0}
+[data-theme=light]{--bg:#f6f6f4;--surf:#fff;--fg:#111;--mute:#666;--line:#e2e2de;--ac:#8a8a8a}
+html{scroll-behavior:smooth}body{background:var(--bg);color:var(--fg);transition:background .25s,color .25s;padding-bottom:64px}
+@media(min-width:768px){body{padding-bottom:0}}
+input,select{background:var(--surf);border:1px solid var(--line);padding:.7rem;width:100%;color:inherit}
+.btn{display:inline-block;background:var(--fg);color:var(--bg);padding:.9rem 1.8rem;font-size:11px;letter-spacing:.22em;text-transform:uppercase;transition:opacity .2s}.btn:hover{opacity:.85}.btn:disabled{opacity:.4}.btn.o{background:none;color:var(--fg);border:1px solid var(--fg)}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+@keyframes mq{to{transform:translateX(-50%)}}@keyframes sh{to{background-position:-150% 0}}@keyframes rot{to{transform:rotate(360deg)}}@keyframes flt{50%{transform:translateY(-12px)}}
+.shine{background:linear-gradient(100deg,var(--fg) 40%,var(--ac) 50%,var(--fg) 60%);background-size:250% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sh 7s linear infinite}
+.spot::before{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(520px circle at var(--x,70%) var(--y,30%),color-mix(in srgb,var(--ac) 16%,transparent),transparent 60%)}
+.ring::before{content:"";position:absolute;inset:-35%;background:conic-gradient(from 0deg,transparent 0,rgba(192,192,192,.3) 12%,transparent 35%);animation:rot 10s linear infinite}
+.card-glow{transition:box-shadow .4s,transform .4s}.card-glow:hover{box-shadow:0 0 0 1px var(--ac),0 20px 60px -20px color-mix(in srgb,var(--ac) 35%,transparent);transform:translateY(-4px)}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;z-index:300;opacity:.035;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.8'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)'/%3E%3C/svg%3E")}
+
+/* ═════════════ Mavzu o'tishi (faqat vaqtincha klass, dizaynga ta'sir qilmaydi) ═════════════ */
+.theme-anim,.theme-anim *,.theme-anim *::before,.theme-anim *::after{transition:background-color .35s ease,color .35s ease,border-color .35s ease,fill .35s ease,stroke .35s ease,box-shadow .35s ease!important}
+
+/* ═════════════ L VISION v2 — yangi dizayn tizimi ═════════════
+   Hammasi `.v2` ichida. Catalog sahifasi (/catalog) `.v2` dan TASHQARIDA — u asl dizaynida qoladi. */
+.v2{
+  --bg:#07060f;--surf:#110f1f;--fg:#f4f3ff;--mute:#a09db8;--line:rgba(160,150,255,.16);--ac:#8b9dff;
+  --g1:#a78bfa;--g2:#4f8bff;--g3:#22d3ee;--glow:rgba(99,120,255,.30);--wm-fallback:#8ea2ff;
+  --glass:rgba(20,17,38,.55);--hair:rgba(255,255,255,.08);--grid:rgba(160,150,255,.07);--blob:.55;
+  --f-display:'Unbounded','Manrope',ui-sans-serif,system-ui,sans-serif;
+  font-family:'Manrope',ui-sans-serif,system-ui,-apple-system,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+  background:var(--bg);color:var(--fg);transition:background-color .3s,color .3s;
+}
+[data-theme=light] .v2{
+  --bg:#f6f5fc;--surf:#ffffff;--fg:#13112a;--mute:#5a5775;--line:rgba(80,70,180,.16);--ac:#5b5bd6;
+  --g1:#7c3aed;--g2:#2563eb;--g3:#0891b2;--glow:rgba(79,70,229,.16);--wm-fallback:#4f46e5;
+  --glass:rgba(255,255,255,.7);--hair:rgba(20,10,80,.08);--grid:rgba(80,70,180,.08);--blob:.28;
+}
+.v2 ::selection{background:color-mix(in srgb,var(--g2) 40%,transparent)}
+.v2 :focus-visible{outline:2px solid var(--g2);outline-offset:3px;border-radius:6px}
+.v2 h1,.v2 h2{letter-spacing:-.035em}
+.v2 .border.border-line{border-radius:16px}
+
+/* tugmalar */
+.v2 .btn{border-radius:999px;padding:.95rem 1.8rem;font-weight:600;letter-spacing:.14em;transition:transform .25s,box-shadow .3s,background-color .3s,color .3s,opacity .2s}
+.v2 .btn:hover{opacity:1;transform:translateY(-2px);box-shadow:0 14px 44px -12px var(--glow),0 0 0 1px color-mix(in srgb,var(--g2) 50%,transparent)}
+.v2 .btn:active{transform:translateY(0) scale(.97)}
+.v2 .btn:disabled{transform:none;box-shadow:none}
+.v2 .btn.o{background:var(--glass);border:1px solid var(--line);color:var(--fg);backdrop-filter:blur(8px)}
+.v2 .btn.o:hover{border-color:var(--g2)}
+/* inputlar */
+.v2 input,.v2 select{border-radius:10px;border-color:var(--line);transition:border-color .2s,box-shadow .2s}
+.v2 input:not([type=range]):not([type=checkbox]):not([type=radio]):focus-visible,.v2 select:focus-visible{outline:none;border-color:var(--g2);box-shadow:0 0 0 3px color-mix(in srgb,var(--g2) 22%,transparent)}
+.v2 input[type=range],.v2 input[type=checkbox],.v2 input[type=radio]{padding:0;border:0;background:transparent;accent-color:var(--g2)}
+
+/* shisha panel */
+.glass{background:var(--glass);border:1px solid var(--line);backdrop-filter:blur(18px) saturate(1.3);-webkit-backdrop-filter:blur(18px) saturate(1.3)}
+.grad-t{background:linear-gradient(100deg,var(--g1) 0%,var(--g2) 55%,var(--g3) 100%);-webkit-background-clip:text;background-clip:text;color:var(--wm-fallback);-webkit-text-fill-color:transparent}
+@supports not ((-webkit-background-clip:text) or (background-clip:text)){.grad-t{-webkit-text-fill-color:currentColor}}
+.grad-ring{position:relative}.grad-ring::before{content:"";position:absolute;inset:0;border-radius:inherit;padding:1px;background:linear-gradient(135deg,var(--g1),var(--g2),var(--g3));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;pointer-events:none;opacity:.7}
+
+/* hero fon */
+@keyframes drift{from{transform:translate3d(0,0,0) scale(1)}to{transform:translate3d(6%,-5%,0) scale(1.12)}}
+@keyframes drift2{from{transform:translate3d(0,0,0) scale(1.05)}to{transform:translate3d(-7%,6%,0) scale(.95)}}
+@keyframes pulse-dot{50%{opacity:.35;transform:scale(.7)}}
+.blob{position:absolute;border-radius:9999px;filter:blur(90px);opacity:var(--blob);will-change:transform;pointer-events:none}
+.blob.a{background:radial-gradient(circle,var(--g1),transparent 68%);animation:drift 22s ease-in-out infinite alternate}
+.blob.b{background:radial-gradient(circle,var(--g2),transparent 68%);animation:drift2 26s ease-in-out infinite alternate}
+.blob.c{background:radial-gradient(circle,var(--g3),transparent 68%);animation:drift 30s ease-in-out infinite alternate-reverse}
+.gridbg{position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(var(--grid) 1px,transparent 1px),linear-gradient(90deg,var(--grid) 1px,transparent 1px);background-size:64px 64px;-webkit-mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 30%,transparent 80%);mask-image:radial-gradient(ellipse 70% 60% at 50% 40%,#000 30%,transparent 80%)}
+.dot{animation:pulse-dot 2.4s ease-in-out infinite}
+
+/* marquee (katta kontur matn) */
+.outline-t{color:transparent;-webkit-text-stroke:1px color-mix(in srgb,var(--fg) 28%,transparent)}
+
+/* havolalar */
+.lnk{background:linear-gradient(90deg,var(--g1),var(--g3)) 0 100%/0 1px no-repeat;transition:background-size .3s ease,color .2s;padding-bottom:2px}
+.lnk:hover,.lnk[aria-current=page]{background-size:100% 1px;color:var(--fg)}
+
+/* ═════════════ Footer: katta L Vision ═════════════ */
+.wm-wrap{filter:drop-shadow(0 0 34px var(--glow))}
+.wm{font-family:var(--f-display);font-weight:600;font-size:clamp(46px,12.4vw,210px);line-height:1;letter-spacing:-.045em;white-space:nowrap;color:var(--wm-fallback);user-select:none}
+.wm-l,.wm-t{display:inline-block;padding:.04em .02em .12em}
+.wm-l{margin-right:.14em;font-weight:700}
+@keyframes wm{to{background-position:100% 0}}
+@supports ((-webkit-background-clip:text) or (background-clip:text)){
+  .wm-t{background:linear-gradient(100deg,var(--g1) 0%,var(--g2) 52%,var(--g3) 100%);background-size:160% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent;animation:wm 16s ease-in-out infinite alternate}
+  .wm-l{background:linear-gradient(160deg,var(--g1) 10%,var(--g2) 90%);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-fill-color:transparent}
+}
+.ft-bg{background:radial-gradient(900px 340px at 50% 100%,color-mix(in srgb,var(--g2) 16%,transparent),transparent 70%),var(--surf)}
+.f-display{font-family:var(--f-display)}
+.v2 .flex>span+input{border-top-left-radius:0;border-bottom-left-radius:0}
+.v2 .btn{white-space:nowrap}

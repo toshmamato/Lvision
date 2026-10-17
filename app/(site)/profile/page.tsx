@@ -1,0 +1,10 @@
+'use client';
+import {useEffect,useState} from 'react';import {Sun,Moon,LogOut,Phone} from 'lucide-react';import {toggleTheme} from '@/lib/theme';import {useStore} from '@/lib/store';import {useMounted} from '@/lib/useMounted';import {fmt} from '@/lib/format';
+export default function Profile(){
+ const m=useMounted(),{user,setUser,setLogin}=useStore(),[o,setO]=useState<any[]>([]);
+ useEffect(()=>{fetch('/api/me').then(r=>r.json()).then(d=>{setUser(d.user);setO(d.orders||[])})},[setUser]);
+ if(m&&!user)return <div className="mx-auto max-w-md px-5 py-24 text-center"><Phone className="mx-auto mb-4 text-ac" size={32}/><h1 className="mb-2 text-3xl font-light">Вход по номеру телефона</h1><p className="mb-6 text-mute">Войдите, чтобы оформлять заказы и видеть их историю.</p><button className="btn" onClick={()=>setLogin(true)}>Войти</button></div>;
+ return <div className="mx-auto max-w-2xl px-5 py-8"><h1 className="mb-6 text-4xl font-light">Профиль</h1>
+ <div className="mb-4 flex items-center justify-between border border-line bg-surf p-4"><div><p>{user?.name||'Покупатель'}</p><p className="text-sm text-mute">{user?.phone}</p></div><button className="flex items-center gap-2 text-xs text-mute" onClick={async()=>{await fetch('/api/auth/logout',{method:'POST'});setUser(null)}}><LogOut size={16}/>Выйти</button></div>
+ <div className="mb-8 flex items-center justify-between border border-line p-4"><span>Тема оформления</span><button aria-label="Тема" onClick={toggleTheme} className="flex gap-2"><Sun size={20}/><Moon size={20}/></button></div>
+ <h2 className="mb-3 text-xl font-light">Мои заказы</h2>{o.length?o.map(x=><div key={x.no} className="mb-2 border border-line p-4"><p className="flex justify-between"><b className="font-medium">{x.no}</b><span>{fmt(x.total)}</span></p><p className="text-xs text-mute">{new Date(x.created_at).toLocaleDateString('ru-RU')} · {x.status}</p><p className="mt-1 text-sm text-mute">{(x.items||[]).map((i:any)=>i.name+(i.size==='ONE'?'':' '+i.size)+' × '+i.qty).join(', ')}</p></div>):<p className="border border-line p-8 text-center text-mute">Заказов пока нет</p>}</div>}
